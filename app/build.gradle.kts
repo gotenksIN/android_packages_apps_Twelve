@@ -89,7 +89,11 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
-    implementation(libs.kotlinx.coroutines.guava)
+    implementation(libs.kotlinx.coroutines.guava) {
+        // Exclude compile time dependencies
+        exclude("com.google.j2objc", "j2objc-annotations")
+        exclude("org.checkerframework", "checker-qual")
+    }
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.material)
     implementation(libs.nier.visualizer) {
@@ -109,7 +113,12 @@ configure<GenerateBpPluginExtension> {
             }
             module.group.startsWith("org.jetbrains") -> true
             module.group == "com.google.android.material" -> true
+            module.group == "com.google.auto.value" -> true
+            module.group == "com.google.code.findbugs" -> true
+            module.group == "com.google.errorprone" -> true
             module.group == "com.google.guava" -> true
+            module.group == "org.jspecify" -> true
+            module.group == "junit" -> true
             else -> false
         }
     }
